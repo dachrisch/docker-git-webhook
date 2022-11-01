@@ -1,5 +1,5 @@
 # Use AlpineLinux as base image
-FROM alpine:3.14
+FROM alpine:latest
 
 # Install Git
 RUN apk update && apk upgrade && \
@@ -16,6 +16,14 @@ RUN apk add --update \
     py3-pip \
     build-base \
   && pip install requests
+
+# Install jekyll
+RUN apk add --no-cache ruby-bundler ruby-dev
+
+RUN gem update --system
+
+RUN gem install bundler
+
 
 # Copy supervisor config
 ADD conf/supervisord.conf /etc/supervisord.conf

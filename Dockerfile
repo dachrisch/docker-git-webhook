@@ -9,13 +9,17 @@ RUN apk update && apk upgrade && \
 RUN apk add --no-cache \
     supervisor
 
-# Install Python and needed pip modules
+# Install Python and needed modules
 RUN apk add --update \
     python3 \
     python3-dev \
     py3-pip \
     build-base \
   && pip install requests
+
+# https://stackoverflow.com/questions/18683810/docker-supervisord-and-logging-how-to-consolidate-logs-in-docker-logs
+RUN git clone https://github.com/coderanger/supervisor-stdout /opt/supervisor-stdout
+RUN pip install /opt/supervisor-stdout
 
 # Install jekyll
 RUN apk add --no-cache ruby-bundler ruby-dev

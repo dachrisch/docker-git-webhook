@@ -1,3 +1,4 @@
 #!/bin/bash
 
+echo "running docker hook"
 docker-hook -t "$GIT_HOOK_TOKEN" -c pull

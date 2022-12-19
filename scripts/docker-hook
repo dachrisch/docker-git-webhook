@@ -32,8 +32,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         if len(json_payload) > 0:
             try:
                 json_params = json.loads(json_payload)
-                env.update(('REPOSITORY_' + var.upper(), str(val))
-                           for var, val in json_params['repository'].items())
             except JSONDecodeError:
                 logging.error(f"couldn't decode to JSON: [{json_payload}]...ignoring")
         # Check if the secret URL was called

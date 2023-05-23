@@ -1,0 +1,37 @@
+version: "3.5"
+
+services:
+  www:
+    image: nginx:latest
+    depends_on:
+      - repository
+    labels:
+      - traefik.http.routers.bumbleflies.tls=true
+      - "traefik.http.routers.bumbleflies.rule=Host(`bumbleflies.servyy.duckdns.org`) || Host(`b.localhost`)"
+      - traefik.http.routers.bumbleflies.tls.certresolver=letsencryptresolver
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./site:/usr/share/nginx/html
+    ports:
+      - "80:80"
+  
+  repository:
+    build: 
+      context: .
+    image: dachrisch/docker-git-webhook
+    volumes:
+        # Mount this code into /code
+        - ./hooks/on_startup:/custom_scripts/on_startup
+        - ./code:/code
+        - ./site:/site
+    environment:
+        - GIT_REPO=https://github.com/bumbleflies/bumbleflies.github.io
+        - PYTHONUNBUFFERED=1
+    labels:
+      - traefik.http.routers.webhook.tls=true
+      - "traefik.http.routers.webhook.rule=Host(`webhook.servyy.duckdns.org`)"
+      - traefik.http.routers.webhook.tls.certresolver=letsencryptresolver
+    ports:
+      - "8555:8555"

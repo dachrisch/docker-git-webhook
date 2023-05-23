@@ -1,5 +1,5 @@
 # Use AlpineLinux as base image
-FROM alpine:latest
+FROM alpine:3.15
 
 # Install Git
 RUN apk update && apk upgrade && \

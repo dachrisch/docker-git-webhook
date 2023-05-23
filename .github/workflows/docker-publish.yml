@@ -19,7 +19,9 @@ env:
 
 jobs:
   build:
-
+    environment:
+      name: docker-hub
+      url: https://hub.docker.com/repository/docker/dachrisch/docker-git-webhook
     runs-on: ubuntu-latest
     permissions:
       contents: read

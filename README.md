@@ -2,6 +2,7 @@
 :whale: Pull your Git code into a data volume ready to use in other containers. Provides a webhook, so that you can get new code pulled in automatically.
 
 ##### [Docker hub image: eduwass/docker-git-webhook](https://hub.docker.com/r/eduwass/docker-git-webhook/)
+##### [(forked) Docker hub image: dachrisch/docker-git-webhook](https://hub.docker.com/r/dachrisch/docker-git-webhook/)
 
 ### Available Configuration Parameters
 

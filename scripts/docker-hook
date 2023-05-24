@@ -42,7 +42,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 logging.info('token valid')
                 logging.info(f'Start executing {args.cmd}')
                 try:
-                    Popen(args.cmd, env=env).wait()
+                    process = Popen(args.cmd, env=env)
+                    if not process.wait():
+                        raise Exception(f'failed to call {args.cmd}: {process.stderr}')
                     self.send_response(200, 'OK')
                     if 'callback_url' in json_params:
                         # Make a callback to Docker Hub

@@ -24,10 +24,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     '''A POST request handler which expects a token in its path.'''
 
     def do_POST(self):
-        logging.info('receiving post at path: %s', self.path)
         if 'health' in self.path:
             self.send_response(200, 'healthy')
         else:
+            logging.info('receiving post at path: %s', self.path)
             header_length = int(self.headers.get('content-length', '0'))
             json_payload = self.rfile.read(header_length)
             env = dict(os.environ)

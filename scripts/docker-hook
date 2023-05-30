@@ -43,7 +43,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 logging.info(f'Start executing {args.cmd}')
                 try:
                     process = Popen(args.cmd, env=env)
-                    if not process.wait():
+                    if process.wait() > 0:
                         raise Exception(
                             f'failed to call {args.cmd}: {process.returncode} {process.stdout}, {process.stderr}')
                     self.send_response(200, 'OK')
